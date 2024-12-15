@@ -1,0 +1,117 @@
+{% include "base.html" %}
+
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <style>
+        #sidebar{
+    background: linear-gradient(to right , grey , white);
+    height: 100vh;
+    border: 2px solid black;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    
+}
+
+#img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#text{
+    margin-top: 20px;
+    margin-left: 60px;
+}
+
+
+#card{
+    margin-top: 20px;
+    box-shadow: 3px 4px 5px grey;
+   
+}
+
+        </style>
+</head>
+
+<body>
+<h1 style='color:red; text-align:center;'>posts</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" id="sidebar">
+            <h2>{{ user_profile.username }}'s Profile</h2>
+    
+    <!-- Profile Picture and Bio -->
+    <div class="profile-info">
+
+    {% if  profile.profile_picture %}
+    
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+         {% endif %}
+    </div>
+   
+    {% if request.user.username == user_profile.username %}
+    <a href="{% url 'feed:profile_edit' request.user.username %}">Edit Profile</a>
+    {% endif %}
+    </div>
+            
+            {% for post in posts  %}
+            <div class="col-md-8" id="card">
+                <div class="card"  >
+                <div class="posts-section">
+            <h3></h3>
+                {% if post.image %}
+                    <div class="photo">
+                      <img src="{{post.image.url}}" alt="" >
+                {% endif %}
+                    </div>
+     
+                    
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      
+                      <p class="card-text">{{post.caption}}</p>
+                      
+                      <a href="{% url "feed:update_post" post.id %}" class="btn btn-primary" data-mdb-ripple-init><i class="bi bi-pencil-square" style="color:green;"></i></a>
+                      <a href="{% url "feed:delete_post" post.id %}" ><i class="bi bi-trash3-fill" style="color: red;"></i></a>
+                    
+                      <li><strong>Likes --></strong>{{ post.Like.count}}  </li>
+                      
+                     <div class="comments text-muted">
+                     <ul>
+                              {% for comment in post.comments.all %}
+                              <li><strong>{{ comment.user.username }}</strong> -{{ comment.caption }}  </li>
+                              {% endfor %}
+                           
+                              
+                            </ul>
+                          
+                       
+                    </div>
+                    </div>
+                  </div>
+            </div>
+            {% endfor%}
+
+
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

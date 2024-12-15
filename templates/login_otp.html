@@ -1,0 +1,11 @@
+{% include "base.html" %}
+
+{% block content %}
+<h1>Authentication page</h1>
+{%endblock%}
+
+<form method= 'POST' style="align-items: center; display:flex;">
+    {% csrf_token %}
+    <input type='email' name='email' placeholder="Enter Your Email" required>
+    <button type="submit"> send Otp</button>
+</form>

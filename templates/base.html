@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Django project</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+            nav{
+                background: linear-gradient(90deg, rgba(200,199,216,1) 0%, rgba(99,95,95,1) 35%);
+            }
+            
+        </style>
+    </head>
+    <body>
+        {% block nav %}
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid"  id="nav">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  
+                  
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'feed:home' %}">Home</a>
+                  </li>
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                  {% if profile %}
+                  
+                 
+                 
+                    <a class="nav-link" href="{% url 'feed:profile' request.user.username %}">Profile</a>
+                  </li>
+                  {% else %}
+                  <a class="nav-link" href="{% url 'feed:profile_edit' request.user.username %}">create Profile</a>
+
+                   {% endif %}
+                  {% endif%}
+                  
+                  
+                </ul>
+                <form method="GET" action="{% url 'feed:search_posts' %}">
+                  <input type="text" name="q" placeholder="Search posts or users">
+                  <button type="submit">Search</button>
+              </form>
+               
+                 
+            
+                {% if user.is_authenticated %}
+                <button class="btn btn-outline-danger" type="submit"><a href="{% url 'accounts:logout' %}">Logout</a></button>
+                 {% else %} 
+                 <button class="btn btn-primary" type="submit"><a href="{% url 'accounts:login'%}" style="color:antiquewhite">Login</a></button>
+                 <button class="btn btn-primary" type="submit"><a href="{% url 'accounts:register'%}" style="color:orange">Signup</a></button>
+                  {% endif %}
+                </div>
+              
+            </div>
+          </nav>
+          {% endblock nav %}
+        <script src="" async defer></script>
+    </body>
+</html>

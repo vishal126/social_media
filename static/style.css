@@ -1,0 +1,29 @@
+#sidebar{
+    background: linear-gradient(to right , grey , white);
+    height: 100vh;
+    border: 2px solid black;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    
+}
+
+#img{
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#text{
+    margin-top: 20px;
+    margin-left: 60px;
+}
+
+
+#card{
+    margin-top: 20px;
+    box-shadow: 3px 4px 5px grey;
+   
+}

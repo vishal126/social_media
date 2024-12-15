@@ -1,0 +1,49 @@
+{% include "base.html" %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        {%block content%}
+        <button type="button" class="btn btn-primary"><a href="{% url "create_post" %}" style="color:white">create</a></button>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% for post in  posts %}
+        <div>
+    
+       
+        {% if post.image %}
+            <br>
+            <br>
+            <img src="{{ post.image.url }}" width="200" alt="post image">
+            <p>{{ post.caption }}</p>
+            
+            <button type="button" class="btn btn-danger"><a href="{% url "delete_post"  post.id %}" style="color:white">delete</a></button>
+            <button type="button" class="btn btn-primary"><a href="{% url "update_post"  post.id %}" style="color:white">Edit</a></button>
+
+            <br>
+        {% else %}
+        <p>No image available</p>
+
+        {% endif %}
+        </div>
+        {% endfor %}
+        {%endblock %}
+        <script src="" async defer></script>
+    </body>
+</html>
