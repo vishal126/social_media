@@ -5,8 +5,8 @@
     docker_image: "jacksneel/project-1"
     docker_tag: "latest"
     container_name: "con1"
-    host_port: "80"
-    container_port: "80"
+    host_port: "8080"
+    container_port: "8080"
   tasks:
     - name: Check if the container is already running
       docker_container:
